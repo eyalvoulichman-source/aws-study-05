@@ -40,7 +40,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: status.local # <--- אל תשכח להוסיף ל-Hosts: 127.0.0.1 status.local
+  - host: sys-info.local # <--- אל תשכח להוסיף ל-Hosts: 127.0.0.1 status.local
     http:
       paths:
       - path: /
