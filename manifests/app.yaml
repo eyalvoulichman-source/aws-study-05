@@ -5,7 +5,7 @@ metadata:
   namespace: devops
 spec:
   replicas: 3 # נריץ 3 עותקים כדי שתראה שמות פודים שונים בכל רענון!
-   selector:
+  selector:
     matchLabels:
       app: sys-info
   template:
