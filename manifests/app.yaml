@@ -6,7 +6,7 @@ metadata:
 spec:
   replicas: 3
   selector:
-    matchLabels: # שורה 8 - חייבת להיות עם בדיוק 2 רווחים מהמילה selector
+    matchLabels:
       app: sys-info
   template:
     metadata:
@@ -26,10 +26,10 @@ metadata:
   namespace: devops
 spec:
   selector:
-    app: sys-info # <--- מה התווית (Label) של הפודים שהשירות צריך למצוא?
-   ports:
+    app: sys-info
+  ports:
     - port: 80
-      targetPort: 8080 # <--- לאיזה פורט בפוד השירות צריך להעביר את התנועה?
+      targetPort: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -40,7 +40,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: sys-info.local # <--- אל תשכח להוסיף ל-Hosts: 127.0.0.1 status.local
+  - host: status.local
     http:
       paths:
       - path: /
