@@ -4,9 +4,9 @@ metadata:
   name: sys-info-app
   namespace: devops
 spec:
-  replicas: 3 # נריץ 3 עותקים כדי שתראה שמות פודים שונים בכל רענון!
+  replicas: 3
   selector:
-    matchLabels:
+    matchLabels: # שורה 8 - חייבת להיות עם בדיוק 2 רווחים מהמילה selector
       app: sys-info
   template:
     metadata:
@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: monitor
-        image: ghcr.io/eyalvoulichman-source/sys-info-app:latest # <--- למלא כאן!
+        image: ghcr.io/eyalvoulichman-source/sys-info-app:latest
         ports:
-        - containerPort: 8080 # שים לב לפורט שרשמתי בקוד למעלה!
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
