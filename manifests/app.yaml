@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sys-info-app
+  namespace: devops
+spec:
+  replicas: 3 # נריץ 3 עותקים כדי שתראה שמות פודים שונים בכל רענון!
+   selector:
+    matchLabels:
+      app: sys-info
+  template:
+    metadata:
+      labels:
+        app: sys-info
+    spec:
+      containers:
+      - name: monitor
+        image: ghcr.io/eyalvoulichman-source/sys-info-app:latest # <--- למלא כאן!
+        ports:
+        - containerPort: 8080 # שים לב לפורט שרשמתי בקוד למעלה!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sys-info-service
+  namespace: devops
+spec:
+  selector:
+    app: sys-info # <--- מה התווית (Label) של הפודים שהשירות צריך למצוא?
+   ports:
+    - port: 80
+      targetPort: 8080 # <--- לאיזה פורט בפוד השירות צריך להעביר את התנועה?
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sys-info-ingress
+  namespace: devops
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: status.local # <--- אל תשכח להוסיף ל-Hosts: 127.0.0.1 status.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sys-info-service
+            port:
+              number: 80
