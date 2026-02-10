@@ -18,6 +18,14 @@ spec:
         image: ghcr.io/eyalvoulichman-source/sys-info-app:latest
         ports:
         - containerPort: 8080
+        # כאן אנחנו מחברים את הדיסק לתיקייה בתוך הקונטיינר
+        volumeMounts:
+        - name: temp-cache
+          mountPath: /tmp/app-data
+      # כאן אנחנו מגדירים את הדיסק עצמו
+      volumes:
+      - name: temp-cache
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
